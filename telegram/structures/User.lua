@@ -38,6 +38,7 @@ function User:initialize(data)
 
     ---
     -- @section end
+
 end
 
 return User
