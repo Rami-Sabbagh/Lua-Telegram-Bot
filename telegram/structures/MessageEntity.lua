@@ -10,7 +10,7 @@ local MessageEntity = class("telegram.structures.MessageEntity")
 
 --- Create a new message entity object using data returned by Telegram Bot API.
 -- @tparam table data The message entity data returned by Telegram Bot API.
--- @treturn User The new created message entity data object.
+-- @treturn MessageEntity The new created message entity data object.
 function MessageEntity:initialize(data)
 
     --- Type of the entity (string).

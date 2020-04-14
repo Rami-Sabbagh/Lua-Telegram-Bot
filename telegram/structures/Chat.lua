@@ -12,7 +12,7 @@ local Chat = class("telegram.structures.Chat")
 
 --- Create a new chat object using data returned by Telegram Bot API.
 -- @tparam table data The chat data returned by Telegram Bot API.
--- @treturn User The new created chat object.
+-- @treturn Chat The new created chat object.
 function Chat:initialize(data)
 
     --- Unique identifier for this chat (number).
