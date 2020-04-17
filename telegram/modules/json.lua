@@ -19,7 +19,7 @@ function json.decode(data) return tostring(data) end
 local cjsonWorks = pcall(require, "cjson")
 if cjsonWorks then
     local cjson = require("cjson")
-    encode, decode = cjson.encode, cjson.decode
+    json.encode, json.decode = cjson.encode, cjson.decode
 
     return json
 end
