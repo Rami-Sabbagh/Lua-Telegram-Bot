@@ -15,6 +15,15 @@
                 "kind": "build",
                 "isDefault": true
             }
+        },
+        {
+            "label": "Generate documentation",
+            "type": "shell",
+            "command": "ldoc .",
+            "windows": {
+                "command": "wsl ldoc ."
+            },
+            "problemMatcher": []
         }
     ]
 }
