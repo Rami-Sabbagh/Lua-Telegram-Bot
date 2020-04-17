@@ -26,7 +26,7 @@ local Video = require("telegram.structures.Video")
 local VideoNote = require("telegram.structures.VideoNote")
 local Voice = require("telegram.structures.Voice")
 
-local Message = require("telegram.structures.Message")
+local Message = class("telegram.structures.Message")
 
 --- Create a new message object using data returned by Telegram Bot API.
 -- @tparam table data The message data returned by Telegram Bot API.
@@ -52,7 +52,7 @@ function Message:initialize(data)
     self.forwardFrom = data.forward_from and User(data.forward_from)
 
     --- For messages forwarded from channels, information about the original channel (Chat).
-    self.forwardFromChat = data.forward_from_chat = User(data.forward_from_chat)
+    self.forwardFromChat = data.forward_from_chat and User(data.forward_from_chat)
 
     --- For messages forwarded from channels, identifier of the original message in the channel (number).
     self.forwardFromMessageID = data.forward_from_message_id

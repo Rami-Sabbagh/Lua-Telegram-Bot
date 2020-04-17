@@ -4,9 +4,9 @@
 
 local class = require("middleclass")
 
-local ChatPermissions = require("telegram.structures.ChatPermissions")
-local ChatPhoto = require("telegram.structures.ChatPhoto")
-local Message = require("telegram.structures.Message")
+--local ChatPermissions = require("telegram.structures.ChatPermissions")
+--local ChatPhoto = require("telegram.structures.ChatPhoto")
+local Message -- Required inside initialize to avoid loading-loop
 
 local Chat = class("telegram.structures.Chat")
 
@@ -14,6 +14,9 @@ local Chat = class("telegram.structures.Chat")
 -- @tparam table data The chat data returned by Telegram Bot API.
 -- @treturn Chat The new created chat object.
 function Chat:initialize(data)
+
+    --Load remaining modules
+    Message = Message or require("telegram.structures.Message")
 
     --- Unique identifier for this chat (number).
     self.id = data.id

@@ -1,9 +1,9 @@
 file = {
-    "telegram",
+    "lua/telegram",
 
     exclude = {
-        "telegram/modules/https.lua",
-        "telegram/structures/init.lua"
+        "lua/telegram/modules/https.lua",
+        "lua/telegram/structures/init.lua"
     }
 }
 

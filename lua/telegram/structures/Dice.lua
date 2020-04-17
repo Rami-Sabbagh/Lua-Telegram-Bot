@@ -4,7 +4,7 @@
 
 local class = require("middleclass")
 
-local Dice = require("telegram.structures.Dice")
+local Dice = class("telegram.structures.Dice")
 
 --TODO: Dice object.
 
