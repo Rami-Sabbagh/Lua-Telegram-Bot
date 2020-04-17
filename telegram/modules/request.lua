@@ -3,13 +3,14 @@
 
 local baseURL = {"https://api.telegram.org/bot", "<token>", "/", "METHOD_NAME"}
 
+local ltn12 = require("ltn12")
 local http = require("telegram.modules.https")
 local json = require("telegram.modules.json")
 
 --- Make a request to the Telegram Bot API.
 -- @tparam string token The bot's authorization token, e.x: (`123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11`).
 -- @tparam string methodName The Bot API method to request, e.x: (`getUpdates`).
--- @tparam table parameters The method's parameters to send.
+-- @tparam ?table parameters The method's parameters to send.
 -- @treturn boolean success True on success.
 -- @return On success the response data of the method (any), otherwise it's the failure reason (string).
 -- @return On success the response description (string or nil), otherwiser it's the failure error code (number).
@@ -18,16 +19,17 @@ local function request(token, methodName, parameters)
     baseURL[2], baseURL[4] = token, methodName
     local url = table.concat(baseURL)
 
-    --Request headers
-    local headers = {
-        ["Content-Type"] = "application/json"
-    }
-
     --Request body
-    local body = json.encode(parameters)
+    local body = json.encode(parameters or {})
 
     --Request body source
     local source = ltn12.source.string(body)
+
+    --Request headers
+    local headers = {
+        ["Content-Type"] = "application/json",
+        ["Content-Length"] = #body
+    }
 
     --Response body sink
     local responseBody = {}
@@ -43,7 +45,8 @@ local function request(token, methodName, parameters)
     }
 
     if ok then
-        local response = json.decode(table.concat(responseBody))
+        responseBody = table.concat(responseBody)
+        local response = json.decode(responseBody)
         if response.ok then
             return true, response.result, response.description
         else
