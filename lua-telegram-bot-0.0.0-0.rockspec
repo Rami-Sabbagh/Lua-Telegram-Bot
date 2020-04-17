@@ -22,5 +22,6 @@ dependencies = {
 }
 build = {
     type = "builtin",
-    modules = {}
+    modules = {},
+    copy_directories = {"doc"}
 }
