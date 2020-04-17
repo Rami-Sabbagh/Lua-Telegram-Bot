@@ -1,5 +1,5 @@
---- Execute a telegram request.
--- @module telegram.modules.request
+--- A sub-module for executing Telegram Bot API requests
+-- @submodule telegram
 
 local baseURL = {"https://api.telegram.org/bot", "<token>", "/", "METHOD_NAME"}
 
@@ -7,14 +7,24 @@ local ltn12 = require("ltn12")
 local http = require("telegram.modules.https")
 local json = require("telegram.modules.json")
 
+local token --The authorization token
+
 --- Make a request to the Telegram Bot API.
--- @tparam string token The bot's authorization token, e.x: (`123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11`).
+-- @function telegram.request
 -- @tparam string methodName The Bot API method to request, e.x: (`getUpdates`).
 -- @tparam ?table parameters The method's parameters to send.
 -- @treturn boolean success True on success.
 -- @return On success the response data of the method (any), otherwise it's the failure reason (string).
 -- @return On success the response description (string or nil), otherwiser it's the failure error code (number).
-local function request(token, methodName, parameters)
+local function request(methodName, parameters)
+
+    if methodName:lower() == "settoken" then
+        token = parameters
+        return true
+    elseif not token then
+        return false, "The bot's authorization token has not been set!", -2
+    end
+
     --Request url
     baseURL[2], baseURL[4] = token, methodName
     local url = table.concat(baseURL)

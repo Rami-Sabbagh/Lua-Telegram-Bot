@@ -1,5 +1,10 @@
 file = {
     "telegram",
+
+    exclude = {
+        "telegram/modules/https.lua",
+        "telegram/structures/init.lua"
+    }
 }
 
 title = "Lua-Telegram-Bot documentation"

@@ -113,6 +113,7 @@ function Message:initialize(data)
     self.game = data.game and Game(data.game)
 
     --- Message is a photo, available sizes of the photo (Array of PhotoSize).
+    -- @field self.photo
     if data.photo then
         self.photo = {}
         for k,v in ipairs(data.photo) do
@@ -149,6 +150,7 @@ function Message:initialize(data)
     self.dice = data.dice and Dice(data.dice)
 
     --- New members that were added to the group or supergroup and information about them (the bot itself may be one of these members) (Array of User).
+    -- @field self.newChatMembers
     if data.new_chat_members then
         self.newChatMembers = {}
         for k,v in ipairs(data.new_chat_members) do
@@ -163,6 +165,7 @@ function Message:initialize(data)
     self.newChatTitle = data.new_chat_title
 
     --- A chat photo was change to this value (Array of PhotoSize).
+    -- @field self.newChatPhoto
     if data.new_chat_photo then
         self.newChatPhoto = {}
         for k,v in ipairs(data.new_chat_photo) do
