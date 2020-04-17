@@ -21,6 +21,10 @@ function User:initialize(data)
     --- Optional fields.
     -- @section optional_fields
 
+    --- User‘s or bot’s last name (string).
+    self.lastName = data.last_name
+    --- User‘s or bot’s username (string).
+    self.username = data.username
     --- [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag) of the user's language (string).
     self.languageCode = data.language_code
     --- True, if the bot can be invited to groups (boolean).
