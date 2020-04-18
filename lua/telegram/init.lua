@@ -4,7 +4,6 @@ local telegram = {}
 
 -- Load the submodules.
 telegram.json = require("telegram.modules.json")
-telegram.https = require("telegram.modules.https")
 telegram.request = require("telegram.modules.request")
 
 -- Load the structures.
@@ -14,6 +13,12 @@ telegram.structures = require("telegram.structures")
 -- @tparam string token The bot's authorization token, e.x: (`123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11`).
 function telegram.setToken(token)
     telegram.request("setToken", token)
+end
+
+--- Set the default timeout used for the API requests
+-- @tparam number timeout The new timeout value, -1 for no timeout.
+function telegram.setTimeout(timeout)
+    telegram.request("setTimeout", timeout)
 end
 
 --- A simple method for testing your bot's auth token, get information about the bot's user itself.
@@ -49,10 +54,7 @@ end
 -- @treturn {Update} Array of Update objects.
 -- @raise Error on failure.
 function telegram.getUpdates(offset, limit, timeout, allowedUpdates)
-    local originalTimeout = telegram.https.TIMEOUT
-    telegram.https.TIMEOUT = (timeout or 0) + 3
-    local ok, data = telegram.request("getUpdates", {offset=offset, limit=limit, timeout=timeout, allowed_updates=allowedUpdates})
-    telegram.https.TIMEOUT = originalTimeout
+    local ok, data = telegram.request("getUpdates", {offset=offset, limit=limit, timeout=timeout, allowed_updates=allowedUpdates}, (timeout or 0) + 5)
     if not ok then return error(data) end
     for k,v in ipairs(data) do data[k] = telegram.structures.Update(v) end
     return data

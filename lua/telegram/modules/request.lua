@@ -4,26 +4,35 @@
 local baseURL = {"https://api.telegram.org/bot", "<token>", "/", "METHOD_NAME"}
 
 local ltn12 = require("ltn12")
-local http = require("telegram.modules.https")
+local http = require("http.compat.socket")
 local json = require("telegram.modules.json")
 
 local token --The authorization token
+local defaultTimeout = 5 --Requests default timeout
 
 --- Make a request to the Telegram Bot API.
 -- @function telegram.request
 -- @tparam string methodName The Bot API method to request, e.x: (`getUpdates`).
 -- @tparam ?table parameters The method's parameters to send.
+-- @tparam ?number timeout Custom timeout for this request alone, -1 for no timeout.
 -- @treturn boolean success True on success.
 -- @return On success the response data of the method (any), otherwise it's the failure reason (string).
 -- @return On success the response description (string or nil), otherwiser it's the failure error code (number).
-local function request(methodName, parameters)
+local function request(methodName, parameters, timeout)
 
     if methodName:lower() == "settoken" then
         token = parameters
         return true
+    elseif methodName:lower() == "settimeout" then
+        defaultTimeout = parameters
+        return true
     elseif not token then
         return false, "The bot's authorization token has not been set!", -2
     end
+
+    --Set the timeout
+    timeout = timeout or defaultTimeout
+    http.TIMEOUT = timeout ~= -1 and timeout
 
     --Request url
     baseURL[2], baseURL[4] = token, methodName

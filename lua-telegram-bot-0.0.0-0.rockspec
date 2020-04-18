@@ -15,8 +15,8 @@ description = {
 }
 dependencies = {
     "lua >= 5.1, < 5.4",
+    "http >= 0.3 < 0.4",
     "luasocket >= 3.0rc1, < 4.0",
-    "luasec >= 0.6, <= 0.9",
     "middleclass >= 4.1.1, < 5.0.0",
     "lua-cjson >= 2.1.0, < 3.0.0"
 }
