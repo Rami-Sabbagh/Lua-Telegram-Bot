@@ -4,13 +4,11 @@ local telegram = {}
 
 -- Load the submodules.
 telegram.json = require("telegram.modules.json")
+telegram.https = require("telegram.modules.https")
 telegram.request = require("telegram.modules.request")
 
 -- Load the structures.
 telegram.structures = require("telegram.structures")
-
---- Requests timeout in seconds (number).
-telegram.timeout = 5
 
 --- Set the bot's authorization token
 -- @tparam string token The bot's authorization token, e.x: (`123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11`).
@@ -51,7 +49,10 @@ end
 -- @treturn {Update} Array of Update objects.
 -- @raise Error on failure.
 function telegram.getUpdates(offset, limit, timeout, allowedUpdates)
-    local ok, data = telegram.request("getUpdates", {offset=offset, limit=limit, timeout=timeout, allowed_updates=allowedUpdates}, telegram.timeout, timeout+2)
+    local originalTimeout = telegram.https.TIMEOUT
+    telegram.https.TIMEOUT = (timeout or 0) + 3
+    local ok, data = telegram.request("getUpdates", {offset=offset, limit=limit, timeout=timeout, allowed_updates=allowedUpdates})
+    telegram.https.TIMEOUT = originalTimeout
     if not ok then return error(data) end
     for k,v in ipairs(data) do data[k] = telegram.structures.Update(v) end
     return data
@@ -62,7 +63,7 @@ end
 -- @treturn Chat The requested chat object on success.
 -- @raise Error on failure.
 function telegram.getChat(chatID)
-    local ok, data = telegram.request("getChat", {chat_id = chatID}, telegram.timeout)
+    local ok, data = telegram.request("getChat", {chat_id = chatID})
     if not ok then return error(data) end
     return telegram.structures.Chat(data)
 end
@@ -73,7 +74,7 @@ end
 -- @treturn string The exported invite link on success.
 -- @raise Error on failure.
 function telegram.exportChatInviteLink(chatID)
-    local ok, data = telegram.request("exportChatInviteLink", {chat_id = chatID}, telegram.timeout)
+    local ok, data = telegram.request("exportChatInviteLink", {chat_id = chatID})
     if not ok then return error(data) end
     return data
 end
