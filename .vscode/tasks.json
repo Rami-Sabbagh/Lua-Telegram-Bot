@@ -24,6 +24,15 @@
                 "command": "wsl ldoc ."
             },
             "problemMatcher": []
+        },
+        {
+            "label": "Run luacheck",
+            "type": "shell",
+            "command": "luacheck .",
+            "windows": {
+                "command": "wsl luacheck ."
+            },
+            "problemMatcher": []
         }
     ]
 }
