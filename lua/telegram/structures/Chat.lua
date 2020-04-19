@@ -106,4 +106,14 @@ function Chat:sendMessage(text, parseMode, disableWebPagePreview, disableNotific
     return call("sendMessage", self.id, text, parseMode, disableWebPagePreview, disableNotification, replyToMessageID, replyMarkup)
 end
 
+--- Operators overrides.
+-- @section operators_overrides
+
+--- Test if the 2 chat objects refer to the same chat (by comparing their IDs).
+-- @tparam Chat chat The chat to compare with.
+-- @treturn boolean `true` if they're the same.
+function Chat:__eq(chat)
+    return self.id == chat.id
+end
+
 return Chat
