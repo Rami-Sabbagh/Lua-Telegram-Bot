@@ -5,6 +5,7 @@ return {
     Contact = require("telegram.structures.Contact"),
     Dice = require("telegram.structures.Dice"),
     Document = require("telegram.structures.Document"),
+    File = require("telegram.structures.File"),
     Game = require("telegram.structures.Game"),
     InlineKeyboardMarkup = require("telegram.structures.InlineKeyboardMarkup"),
     Location = require("telegram.structures.Location"),
