@@ -86,4 +86,24 @@ function Chat:initialize(data)
 
 end
 
+---Call a function passing it's errors to the previous error level.
+local function call(func, ...)
+    local ok, a,b,c,d,e,f = pcall(require("telegram")[func], ...)
+    if not ok then error(tostring(a), 3) end
+    return a,b,c,d,e,f
+end
+
+--- Use this method to send text messages.
+-- @tparam string text Text of the message to be sent, 1-4096 characters after entities parsing.
+-- @tparam ?string parseMode `Markdown` or `HTML` if you want some markdown in the bot's messages.
+-- @tparam ?boolean disableWebPagePreview Disables link previews for links in this message.
+-- @tparam ?boolean disableNotification Sends the message silently. Users will receive a notification with no sound.
+-- @tparam ?number replyToMessageID If the message is a reply, ID of the original message.
+-- @tparam ?InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply replyMarkup Additional interface options. An object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+-- @treturn Message The sent message.
+-- @raise Error on failure.
+function Chat:sendMessage(text, parseMode, disableWebPagePreview, disableNotification, replyToMessageID, replyMarkup)
+    return call("sendMessage", self.id, text, parseMode, disableWebPagePreview, disableNotification, replyToMessageID, replyMarkup)
+end
+
 return Chat

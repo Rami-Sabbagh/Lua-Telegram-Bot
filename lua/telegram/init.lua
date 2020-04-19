@@ -21,15 +21,6 @@ function telegram.setTimeout(timeout)
     telegram.request("setTimeout", timeout)
 end
 
---- A simple method for testing your bot's auth token, get information about the bot's user itself.
--- @treturn User The bot's user object.
--- @raise Error on failure.
-function telegram.getMe()
-    local ok, data = telegram.request("getMe")
-    if not ok then return error(data) end
-    return telegram.structures.User(data)
-end
-
 --- Use this method to receive incoming updates using long polling ([wiki](https://en.wikipedia.org/wiki/Push_technology#Long_polling)).
 --
 -- **Notes:**
@@ -58,6 +49,33 @@ function telegram.getUpdates(offset, limit, timeout, allowedUpdates)
     if not ok then return error(data) end
     for k,v in ipairs(data) do data[k] = telegram.structures.Update(v) end
     return data
+end
+
+--- A simple method for testing your bot's auth token, get information about the bot's user itself.
+-- @treturn User The bot's user object.
+-- @raise Error on failure.
+function telegram.getMe()
+    local ok, data = telegram.request("getMe")
+    if not ok then return error(data) end
+    return telegram.structures.User(data)
+end
+
+--- Use this method to send text messages.
+-- @tparam number|string chatID Unique identifier for the target chat or username of the target supergroup or channel (in the format `@channelusername`).
+-- @tparam string text Text of the message to be sent, 1-4096 characters after entities parsing.
+-- @tparam ?string parseMode `Markdown` or `HTML` if you want some markdown in the bot's messages.
+-- @tparam ?boolean disableWebPagePreview Disables link previews for links in this message.
+-- @tparam ?boolean disableNotification Sends the message silently. Users will receive a notification with no sound.
+-- @tparam ?number replyToMessageID If the message is a reply, ID of the original message.
+-- @tparam ?InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply replyMarkup Additional interface options. An object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+-- @treturn Message The sent message.
+-- @raise Error on failure.
+function telegram.sendMessage(chatID, text, parseMode, disableWebPagePreview, disableNotification, replyToMessageID, replyMarkup)
+    local ok, data = telegram.request("sendMessage", {chat_id=chatID, text=text, parse_mode=parseMode,
+    disable_web_page_preview=disableWebPagePreview, disable_notifiction=disableNotification,
+    reply_to_message_id=replyToMessageID, reply_markup=replyMarkup})
+    if not ok then return error(data) end
+    return telegram.structures.Message(data)
 end
 
 --- Use this method to get up to date information about the chat (current name of the user for one-on-one conversations, current username of a user, group or channel, etc.).
