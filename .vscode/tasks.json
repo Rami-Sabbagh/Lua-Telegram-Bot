@@ -23,7 +23,11 @@
             "windows": {
                 "command": "wsl ldoc ."
             },
-            "problemMatcher": []
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
         },
         {
             "label": "Run luacheck",
@@ -32,7 +36,11 @@
             "windows": {
                 "command": "wsl luacheck ."
             },
-            "problemMatcher": []
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
         }
     ]
 }
