@@ -99,4 +99,33 @@ function telegram.exportChatInviteLink(chatID)
     return data
 end
 
+--- Use this method to change the list of the bot's commands.
+-- Command name must be between 1 and 32 characters.
+-- Command description must be between 3 and 256 characters.
+-- @tparam table commands A table which keys are the commands names, and values are the commands descriptions.
+-- @treturn boolean `true` on success.
+-- @raise Error on failure.
+function telegram.setMyCommands(commands)
+    local botCommands = {}
+    for commandName, commandDescription in pairs(commands) do
+        table.insert(botCommands, {command=commandName, description=commandDescription})
+    end
+    local ok, data = telegram.request("setMyCommands", {commands=botCommands})
+    if not ok then return error(data) end
+    return data
+end
+
+--- Use this method to get the current list of the bot's commands.
+-- @treturn table A table which keys are the commands names, and values are the commands descriptions.
+-- @raise Error on failure.
+function telegram.getMyCommands()
+    local ok, data = telegram.request("getMyCommands")
+    if not ok then return error(data) end
+    local commands = {}
+    for _, command in ipairs(data) do
+        commands[command.command] = command.description
+    end
+    return commands
+end
+
 return telegram
