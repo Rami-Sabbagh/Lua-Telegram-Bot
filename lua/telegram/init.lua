@@ -78,6 +78,16 @@ function telegram.sendMessage(chatID, text, parseMode, disableWebPagePreview, di
     return telegram.structures.Message(data)
 end
 
+--- Use this method to get basic info about a file and prepare it for downloading. For the moment, bots can download files of up to 20MB in size.
+-- @tparam string fileID File identifier to get info about.
+-- @treturn File The requested file object.
+-- @raise Error on failure.
+function telegram.getFile(fileID)
+    local ok, data = telegram.request("getFile", {file_id=fileID})
+    if not ok then return error(data) end
+    return telegram.structures.File(data)
+end
+
 --- Use this method to get up to date information about the chat (current name of the user for one-on-one conversations, current username of a user, group or channel, etc.).
 -- @tparam number|string chatID Unique identifier for the target chat or username of the target supergroup or channel (in the format `@channelusername`).
 -- @treturn Chat The requested chat object on success.
