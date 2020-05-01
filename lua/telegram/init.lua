@@ -1,4 +1,5 @@
 --- Lua-Telegram-Bot API.
+-- Supports Bot API 4.8
 -- @module telegram
 local telegram = {}
 
