@@ -7,9 +7,6 @@
             "label": "Install luarocks module",
             "type": "shell",
             "command": "sudo luarocks make",
-            "windows": {
-                "command": "wsl sudo luarocks make"
-            },
             "problemMatcher": [],
             "group": {
                 "kind": "build",
@@ -20,9 +17,6 @@
             "label": "Generate documentation",
             "type": "shell",
             "command": "ldoc .",
-            "windows": {
-                "command": "wsl ldoc ."
-            },
             "problemMatcher": [],
             "group": {
                 "kind": "build",
@@ -33,9 +27,6 @@
             "label": "Run luacheck",
             "type": "shell",
             "command": "luacheck .",
-            "windows": {
-                "command": "wsl luacheck ."
-            },
             "problemMatcher": [],
             "group": {
                 "kind": "build",
