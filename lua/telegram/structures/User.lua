@@ -52,4 +52,14 @@ function User:initialize(data)
 
 end
 
+--- Operators overrides.
+-- @section operators_overrides
+
+--- Test if the 2 user objects refer to the same chat (by comparing their IDs).
+-- @tparam User user The user to compare with.
+-- @treturn boolean `true` if they're the same.
+function User:__eq(user)
+    return self.id == user.id
+end
+
 return User
