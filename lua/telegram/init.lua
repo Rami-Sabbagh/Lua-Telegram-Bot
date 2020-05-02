@@ -73,7 +73,7 @@ end
 -- @raise Error on failure.
 function telegram.sendMessage(chatID, text, parseMode, disableWebPagePreview, disableNotification, replyToMessageID, replyMarkup)
     local ok, data = telegram.request("sendMessage", {chat_id=chatID, text=text, parse_mode=parseMode,
-    disable_web_page_preview=disableWebPagePreview, disable_notifiction=disableNotification,
+    disable_web_page_preview=disableWebPagePreview, disable_notification=disableNotification,
     reply_to_message_id=replyToMessageID, reply_markup=replyMarkup})
     if not ok then return error(data) end
     return telegram.structures.Message(data)
