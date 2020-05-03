@@ -67,7 +67,7 @@ function Message:initialize(data)
     self.forwardDate = data.forward_date
 
     --- For replies, the original message (Message).
-    -- Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+    -- Note that the Message object in this field will not contain further replyToMessage fields even if it itself is a reply.
     self.replyToMessage = data.reply_to_message and Message(data.reply_to_message)
 
     --- Date the message was last edited in Unix time (number).
