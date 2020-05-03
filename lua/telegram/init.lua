@@ -72,6 +72,7 @@ end
 -- @treturn Message The sent message.
 -- @raise Error on failure.
 function telegram.sendMessage(chatID, text, parseMode, disableWebPagePreview, disableNotification, replyToMessageID, replyMarkup)
+    replyMarkup = replyMarkup and replyMarkup:getData()
     local ok, data = telegram.request("sendMessage", {chat_id=chatID, text=text, parse_mode=parseMode,
     disable_web_page_preview=disableWebPagePreview, disable_notification=disableNotification,
     reply_to_message_id=replyToMessageID, reply_markup=replyMarkup})
