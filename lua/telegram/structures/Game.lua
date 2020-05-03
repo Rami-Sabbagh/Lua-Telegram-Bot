@@ -4,9 +4,9 @@
 
 local class = require("middleclass")
 
-local Animation = require("telegram.structures.Animation")
-local MessageEntity = require("telegram.structures.MessageEntity")
-local PhotoSize = require("telegram.structures.PhotoSize")
+--local Animation = require("telegram.structures.Animation")
+--local MessageEntity = require("telegram.structures.MessageEntity")
+--local PhotoSize = require("telegram.structures.PhotoSize")
 
 local Game = class("telegram.structures.Game")
 

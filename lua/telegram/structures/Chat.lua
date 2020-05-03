@@ -40,7 +40,7 @@ function Chat:initialize(data)
     --- Chat photo (ChatPhoto).
     -- Returned only in `getChat`.
     -- @see telegram.getChat
-    self.photo = data.photo and ChatPhoto(data.photo)
+    self.photo = data.photo --TODO: and ChatPhoto(data.photo)
 
     --- Description, for groups, supergroups and channel chats (string).
     -- Returned only in `getChat`.
@@ -63,7 +63,7 @@ function Chat:initialize(data)
     --- Default chat member permissions, for groups and supergroups (ChatPermissions).
     -- Returned only in `getChat`.
     -- @see telegram.getChat
-    self.permissions = data.permissions and ChatPermissions(data.permissions)
+    self.permissions = data.permissions --TODO: and ChatPermissions(data.permissions)
 
     --- For supergroups, the minimum allowed delay between consecutive messages
     -- sent by each unpriviledged user (number).

@@ -4,7 +4,7 @@
 
 local class = require("middleclass")
 
-local PhotoSize = require("telegram.structures.PhotoSize")
+--local PhotoSize = require("telegram.structures.PhotoSize")
 
 local VideoNote = class("telegram.structure.VideoNote")
 
