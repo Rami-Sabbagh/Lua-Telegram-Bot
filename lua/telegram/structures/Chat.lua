@@ -106,6 +106,18 @@ function Chat:sendMessage(text, parseMode, disableWebPagePreview, disableNotific
     return call("sendMessage", self.id, text, parseMode, disableWebPagePreview, disableNotification, replyToMessageID, replyMarkup)
 end
 
+--- Use this method to send a dice, which will have a random value from 1 to 6.
+-- (Yes, we're aware of the “_proper_” singular of die. But it's awkward, and we decided to help it change. One dice at a time!).
+-- @tparam ?string emoji Emoji on which the dice throw animation is based. Currently, must be one of “🎲” or “🎯”. Defaults to “🎲”.
+-- @tparam ?boolean disableNotification Sends the message silently. Users will receive a notification with no sound.
+-- @tparam ?number replyToMessageID If the message is a reply, ID of the original message.
+-- @tparam ?InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply replyMarkup Additional interface options. An object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+-- @treturn Message The sent message.
+-- @raise Error on failure.
+function Chat:sendDice(emoji, disableNotification, replyToMessageID, replyMarkup)
+    return call("sendDice", self.id, emoji, disableNotification, replyToMessageID, replyMarkup)
+end
+
 --- Operators overrides.
 -- @section operators_overrides
 

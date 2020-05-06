@@ -80,6 +80,23 @@ function telegram.sendMessage(chatID, text, parseMode, disableWebPagePreview, di
     return telegram.structures.Message(data)
 end
 
+--- Use this method to send a dice, which will have a random value from 1 to 6.
+-- (Yes, we're aware of the “_proper_” singular of die. But it's awkward, and we decided to help it change. One dice at a time!).
+-- @tparam number|string chatID Unique identifier for the target chat or username of the target supergroup or channel (in the format `@channelusername`).
+-- @tparam ?string emoji Emoji on which the dice throw animation is based. Currently, must be one of “🎲” or “🎯”. Defaults to “🎲”.
+-- @tparam ?boolean disableNotification Sends the message silently. Users will receive a notification with no sound.
+-- @tparam ?number replyToMessageID If the message is a reply, ID of the original message.
+-- @tparam ?InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply replyMarkup Additional interface options. An object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+-- @treturn Message The sent message.
+-- @raise Error on failure.
+function telegram.sendDice(chatID, emoji, disableNotification, replyToMessageID, replyMarkup)
+    replyMarkup = replyMarkup and replyMarkup:getData()
+    local ok, data = telegram.request("sendDice", {char_id=chatID, emoji=emoji, disable_notification=disableNotification,
+    reply_to_message_id=replyToMessageID, reply_markup = replyMarkup})
+    if not ok then return error(data) end
+    return telegram.structures.Message(data)
+end
+
 --- Use this method to get basic info about a file and prepare it for downloading. For the moment, bots can download files of up to 20MB in size.
 -- @tparam string fileID File identifier to get info about.
 -- @treturn File The requested file object.
