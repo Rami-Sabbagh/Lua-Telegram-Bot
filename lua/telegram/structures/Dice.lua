@@ -23,7 +23,7 @@ end
 -- @section operators_overrides
 
 --- Test if the 2 dice objects are equal (same emoji, and same value).
--- @tparam Dice user The dice to compare with.
+-- @tparam Dice dice The dice to compare with.
 -- @treturn boolean `true` if they're the same.
 function Dice:__eq(dice)
     return (self.emoji == dice.emoji) and (self.value == dice.emoji)
