@@ -91,7 +91,7 @@ end
 -- @raise Error on failure.
 function telegram.sendDice(chatID, emoji, disableNotification, replyToMessageID, replyMarkup)
     replyMarkup = replyMarkup and replyMarkup:getData()
-    local ok, data = telegram.request("sendDice", {char_id=chatID, emoji=emoji, disable_notification=disableNotification,
+    local ok, data = telegram.request("sendDice", {chat_id=chatID, emoji=emoji, disable_notification=disableNotification,
     reply_to_message_id=replyToMessageID, reply_markup = replyMarkup})
     if not ok then return error(data) end
     return telegram.structures.Message(data)
