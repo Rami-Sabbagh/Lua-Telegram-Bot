@@ -15,7 +15,7 @@ local ForceReply = class("telegram.structures.ForceReply")
 --   Targets: 1) users that are `@mentioned` in the text of the Message object;
 --   2) if the bot's message is a reply (has replyToMessageId), sender of the original message.
 -- @treturn ForceReply The new created ForceReply object.
--- @usage local ForceReply = telegram.structures.ForceReply(selective)
+-- @usage local forceReply = telegram.structures.ForceReply(selective)
 function ForceReply:initialize(selective)
 
     --- Shows reply interface to the user, as if they manually selected the bot‘s message and tapped ’Reply' (`true`).
