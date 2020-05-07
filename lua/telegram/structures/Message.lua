@@ -212,6 +212,22 @@ function Message:initialize(data)
     -- @section end
 end
 
+--- Call a function passing it's errors to the previous error level.
+local function call(func, ...)
+    local ok, a,b,c,d,e,f = pcall(require("telegram")[func], ...)
+    if not ok then error(tostring(a), 3) end
+    return a,b,c,d,e,f
+end
+
+--- Use this method to pin a message in a group, a supergroup, or a channel.
+-- he bot must be an administrator in the chat for this to work and must have the `canPinMessages` admin right in the supergroup or `canEditMessages` admin right in the channel.
+-- @tparam ?boolean disableNotification Pass True, if it is not necessary to send a notification to all chat members about the new pinned message. Notifications are always disabled in channels.
+-- @treturn boolean `true` on success.
+-- @raise Error on failure.
+function Message:pinChatMessage(disableNotification)
+    return call("pinChatMessage", self.chat.id, self.messageID, disableNotification)
+end
+
 --- Operators overrides.
 -- @section operators_overrides
 

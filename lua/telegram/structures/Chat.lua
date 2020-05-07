@@ -86,7 +86,7 @@ function Chat:initialize(data)
 
 end
 
----Call a function passing it's errors to the previous error level.
+--- Call a function passing it's errors to the previous error level.
 local function call(func, ...)
     local ok, a,b,c,d,e,f = pcall(require("telegram")[func], ...)
     if not ok then error(tostring(a), 3) end
@@ -116,6 +116,24 @@ end
 -- @raise Error on failure.
 function Chat:sendDice(emoji, disableNotification, replyToMessageID, replyMarkup)
     return call("sendDice", self.id, emoji, disableNotification, replyToMessageID, replyMarkup)
+end
+
+--- Use this method to pin a message in a group, a supergroup, or a channel.
+-- he bot must be an administrator in the chat for this to work and must have the `canPinMessages` admin right in the supergroup or `canEditMessages` admin right in the channel.
+-- @tparam number messageID Identifier of a message to pin.
+-- @tparam ?boolean disableNotification Pass True, if it is not necessary to send a notification to all chat members about the new pinned message. Notifications are always disabled in channels.
+-- @treturn boolean `true` on success.
+-- @raise Error on failure.
+function Chat:pinChatMessage(messageID, disableNotification)
+    return call("pinChatMessage", self.id, messageID, disableNotification)
+end
+
+--- Use this method to unpin a message in a group, a supergroup, or a channel.
+-- he bot must be an administrator in the chat for this to work and must have the `canPinMessages` admin right in the supergroup or `canEditMessages` admin right in the channel.
+-- @treturn boolean `true` on success.
+-- @raise Error on failure.
+function Chat:unpinChatMessage()
+    return call("unpinChatMessage", self.id)
 end
 
 --- Operators overrides.

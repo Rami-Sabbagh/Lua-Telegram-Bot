@@ -107,6 +107,30 @@ function telegram.getFile(fileID)
     return telegram.structures.File(data)
 end
 
+--- Use this method to pin a message in a group, a supergroup, or a channel.
+-- he bot must be an administrator in the chat for this to work and must have the `canPinMessages` admin right in the supergroup or `canEditMessages` admin right in the channel.
+-- @tparam number|string chatID Unique identifier for the target chat or username of the target supergroup or channel (in the format `@channelusername`).
+-- @tparam number messageID Identifier of a message to pin.
+-- @tparam ?boolean disableNotification Pass True, if it is not necessary to send a notification to all chat members about the new pinned message. Notifications are always disabled in channels.
+-- @treturn boolean `true` on success.
+-- @raise Error on failure.
+function telegram.pinChatMessage(chatID, messageID, disableNotification)
+    local ok, data = telegram.request("pinChatMessage", {chat_id=chatID, message_id=messageID, disable_notification=disableNotification})
+    if not ok then return error(data) end
+    return data
+end
+
+--- Use this method to unpin a message in a group, a supergroup, or a channel.
+-- he bot must be an administrator in the chat for this to work and must have the `canPinMessages` admin right in the supergroup or `canEditMessages` admin right in the channel.
+-- @tparam number|string chatID Unique identifier for the target chat or username of the target supergroup or channel (in the format `@channelusername`).
+-- @treturn boolean `true` on success.
+-- @raise Error on failure.
+function telegram.unpinChatMessage(chatID)
+    local ok, data = telegram.request("unpinChatMessage", {chat_id=chatID})
+    if not ok then return error(data) end
+    return data
+end
+
 --- Use this method to get up to date information about the chat (current name of the user for one-on-one conversations, current username of a user, group or channel, etc.).
 -- @tparam number|string chatID Unique identifier for the target chat or username of the target supergroup or channel (in the format `@channelusername`).
 -- @treturn Chat The requested chat object on success.
