@@ -14,6 +14,8 @@ return {
     MessageEntity = require("telegram.structures.MessageEntity"),
     PhotoSize = require("telegram.structures.PhotoSize"),
     PollOption = require("telegram.structures.PollOption"),
+    ReplyKeyboardMarkup = require("telegram.structures.ReplyKeyboardMarkup"),
+    ReplyKeyboardRemove = require("telegram.structures.ReplyKeyboardRemove"),
     Update = require("telegram.structures.Update"),
     User = require("telegram.structures.User"),
     Venue = require("telegram.structures.Venue"),
