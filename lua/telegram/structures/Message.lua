@@ -218,7 +218,7 @@ end
 --- Test if the 2 message objects refer to the same message (by comparing their IDs).
 -- @tparam Message message The message to compare with.
 -- @treturn boolean `true` if they're the same.
-function User:__eq(message)
+function Message:__eq(message)
     return self.me == message.id
 end
 
