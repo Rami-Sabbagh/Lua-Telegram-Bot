@@ -235,7 +235,7 @@ end
 -- @tparam Message message The message to compare with.
 -- @treturn boolean `true` if they're the same.
 function Message:__eq(message)
-    return self.me == message.id
+    return self.messageID == message.messageID
 end
 
 return Message
