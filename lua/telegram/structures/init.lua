@@ -10,6 +10,7 @@ return {
     Game = require("telegram.structures.Game"),
     InlineKeyboardMarkup = require("telegram.structures.InlineKeyboardMarkup"),
     Location = require("telegram.structures.Location"),
+    MaskPosition = require("telegram.structures.MaskPosition"),
     Message = require("telegram.structures.Message"),
     MessageEntity = require("telegram.structures.MessageEntity"),
     PhotoSize = require("telegram.structures.PhotoSize"),
