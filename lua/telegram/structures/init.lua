@@ -17,6 +17,7 @@ return {
     PollOption = require("telegram.structures.PollOption"),
     ReplyKeyboardMarkup = require("telegram.structures.ReplyKeyboardMarkup"),
     ReplyKeyboardRemove = require("telegram.structures.ReplyKeyboardRemove"),
+    Sticker = require("telegram.structures.Sticker"),
     Update = require("telegram.structures.Update"),
     User = require("telegram.structures.User"),
     Venue = require("telegram.structures.Venue"),

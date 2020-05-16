@@ -18,7 +18,7 @@ local MessageEntity = require("telegram.structures.MessageEntity")
 --local PassportData = require("telegram.structures.PassportData")
 local PhotoSize = require("telegram.structures.PhotoSize")
 --local Poll = require("telegram.structures.Poll")
---local Sticker = require("telegram.structures.Sticker")
+local Sticker = require("telegram.structures.Sticker")
 --local SuccessfulPayment = require("telegram.structures.SuccessfulPayment")
 local User = require("telegram.structures.User")
 local Venue = require("telegram.structures.Venue")
@@ -121,7 +121,8 @@ function Message:initialize(data)
         end
     end
 
-    --TODO: sticker
+    --- Message is a sticker, information about the sticker (Sticker).
+    self.sticker = data.sticker and Sticker(data.sticker)
 
     --- Message is a video, information about the video (Video).
     self.video = data.video and Video(data.video)
