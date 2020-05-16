@@ -10,6 +10,12 @@ telegram.request = require("telegram.modules.request")
 -- Load the structures.
 telegram.structures = require("telegram.structures")
 
+--- Upload files using `multipart/form-data`.
+-- @field filename The filename (string).
+-- @field data The file content, can be a string, or a io.* file, or a ltn12 source.
+-- @field len The file's content length, can be ommited when data is just a string.
+-- @table InputFile
+
 --- Set the bot's authorization token
 -- @tparam string token The bot's authorization token, e.x: (`123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11`).
 function telegram.setToken(token)
@@ -68,7 +74,7 @@ end
 -- @tparam ?boolean disableWebPagePreview Disables link previews for links in this message.
 -- @tparam ?boolean disableNotification Sends the message silently. Users will receive a notification with no sound.
 -- @tparam ?number replyToMessageID If the message is a reply, ID of the original message.
--- @tparam ?InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply replyMarkup Additional interface options. An object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+-- @tparam ?InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|nil replyMarkup Additional interface options. An object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
 -- @treturn Message The sent message.
 -- @raise Error on failure.
 function telegram.sendMessage(chatID, text, parseMode, disableWebPagePreview, disableNotification, replyToMessageID, replyMarkup)
@@ -80,13 +86,54 @@ function telegram.sendMessage(chatID, text, parseMode, disableWebPagePreview, di
     return telegram.structures.Message(data)
 end
 
+--- Use this method to send general files.
+-- @tparam number|string chatID Unique identifier for the target chat or username of the target supergroup or channel (in the format `@channelusername`).
+-- @tparam InputFile|string document File to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. [More info on Sending Files](https://core.telegram.org/bots/api#sending-files).
+-- @tparam ?InputFile|string|nil thumb Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file. [More info on Sending Files](https://core.telegram.org/bots/api#sending-files).
+-- @tparam ?string caption Document caption (may also be used when resending documents by file_id), 0-1024 characters after entities parsing.
+-- @tparam ?string parseMode `Markdown` or `HTML` if you want some markdown in the file's caption.
+-- @tparam ?boolean disableNotification Sends the message silently. Users will receive a notification with no sound.
+-- @tparam ?number replyToMessageID If the message is a reply, ID of the original message.
+-- @tparam ?InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|nil replyMarkup Additional interface options. An object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+-- @treturn Message The sent message.
+-- @raise Error on failure.
+function telegram.sendDocument(chatID, document, thumb, caption, parseMode, disableNotification, replyToMessageID, replyMarkup)
+    replyMarkup = replyMarkup and replyMarkup:getData()
+    local parameters = {chat_id=chatID, caption=caption, parse_mode=parseMode, disable_notification=disableNotification,
+    reply_to_message_id=replyToMessageID, reply_markup=replyMarkup}
+
+    local ok, data
+    if type(document) == "table" or type(thumb) == "table" then
+        local files = {}
+
+        if type(document) == "table" then
+            files.document = document
+        else
+            parameters.document = document
+        end
+
+        if type(thumb) == "table" then
+            files.thumb = thumb
+            parameters.thumb = "attach://"..thumb.filename
+        end
+
+        ok, data = telegram.request("sendDocument", parameters, nil, files)
+    else
+        parameters.document = document
+        ok, data = telegram.request("sendDocument", parameters)
+    end
+
+    if not ok then return error(data) end
+    return telegram.structures.Message(data)
+end
+
 --- Use this method to send a dice, which will have a random value from 1 to 6.
 -- (Yes, we're aware of the “_proper_” singular of die. But it's awkward, and we decided to help it change. One dice at a time!).
 -- @tparam number|string chatID Unique identifier for the target chat or username of the target supergroup or channel (in the format `@channelusername`).
 -- @tparam ?string emoji Emoji on which the dice throw animation is based. Currently, must be one of “🎲” or “🎯”. Defaults to “🎲”.
 -- @tparam ?boolean disableNotification Sends the message silently. Users will receive a notification with no sound.
 -- @tparam ?number replyToMessageID If the message is a reply, ID of the original message.
--- @tparam ?InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply replyMarkup Additional interface options. An object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+-- @tparam ?InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|nil replyMarkup Additional interface options. An object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
 -- @treturn Message The sent message.
 -- @raise Error on failure.
 function telegram.sendDice(chatID, emoji, disableNotification, replyToMessageID, replyMarkup)

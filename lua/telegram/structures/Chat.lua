@@ -106,12 +106,26 @@ function Chat:sendMessage(text, parseMode, disableWebPagePreview, disableNotific
     return call("sendMessage", self.id, text, parseMode, disableWebPagePreview, disableNotification, replyToMessageID, replyMarkup)
 end
 
+--- Use this method to send general files.
+-- @tparam telegram.InputFile|string document File to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. [More info on Sending Files](https://core.telegram.org/bots/api#sending-files).
+-- @tparam ?telegram.InputFile|string|nil thumb Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file. [More info on Sending Files](https://core.telegram.org/bots/api#sending-files).
+-- @tparam ?string caption Document caption (may also be used when resending documents by file_id), 0-1024 characters after entities parsing.
+-- @tparam ?string parseMode `Markdown` or `HTML` if you want some markdown in the file's capdtion.
+-- @tparam ?boolean disableNotification Sends the message silently. Users will receive a notification with no sound.
+-- @tparam ?number replyToMessageID If the message is a reply, ID of the original message.
+-- @tparam ?InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|nil replyMarkup Additional interface options. An object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+-- @treturn Message The sent message.
+-- @raise Error on failure.
+function Chat:sendDocument(document, thumb, caption, parseMode, disableNotification, replyToMessageID, replyMarkup)
+    return call("sendDocument", self.id, document, thumb, caption, parseMode, disableNotification, replyToMessageID, replyMarkup)
+end
+
 --- Use this method to send a dice, which will have a random value from 1 to 6.
 -- (Yes, we're aware of the “_proper_” singular of die. But it's awkward, and we decided to help it change. One dice at a time!).
 -- @tparam ?string emoji Emoji on which the dice throw animation is based. Currently, must be one of “🎲” or “🎯”. Defaults to “🎲”.
 -- @tparam ?boolean disableNotification Sends the message silently. Users will receive a notification with no sound.
 -- @tparam ?number replyToMessageID If the message is a reply, ID of the original message.
--- @tparam ?InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply replyMarkup Additional interface options. An object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+-- @tparam ?InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|nil replyMarkup Additional interface options. An object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
 -- @treturn Message The sent message.
 -- @raise Error on failure.
 function Chat:sendDice(emoji, disableNotification, replyToMessageID, replyMarkup)
