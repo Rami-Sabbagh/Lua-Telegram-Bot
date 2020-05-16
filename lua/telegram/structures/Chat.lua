@@ -163,6 +163,17 @@ function Chat:unpinChatMessage()
     return call("unpinChatMessage", self.id)
 end
 
+--- Use this method to send static .WEBP or animated .TGS stickers.
+-- @tparam InputFile|string sticker Sticker to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a .WEBP file from the Internet, or upload a new one using multipart/form-data. [More info on Sending Files](https://core.telegram.org/bots/api#sending-files).
+-- @tparam ?boolean disableNotification Sends the message silently. Users will receive a notification with no sound.
+-- @tparam ?number replyToMessageID If the message is a reply, ID of the original message.
+-- @tparam ?InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|nil replyMarkup Additional interface options. An object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+-- @treturn Message The sent Message.
+-- @raise Error on failure.
+function Chat:sendSticker(sticker, disableNotification, replyToMessageID, replyMarkup)
+    return call("sendSticker", self.id, sticker, disableNotification, replyToMessageID, replyMarkup)
+end
+
 --- Operators overrides.
 -- @section operators_overrides
 
