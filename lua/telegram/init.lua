@@ -86,6 +86,33 @@ function telegram.sendMessage(chatID, text, parseMode, disableWebPagePreview, di
     return telegram.structures.Message(data)
 end
 
+--- Use this method to send photos.
+-- @tparam number|string chatID Unique identifier for the target chat or username of the target supergroup or channel (in the format `@channelusername`).
+-- @tparam InputFile|string photo Photo to send. Pass a file_id as String to send a photo that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a photo from the Internet, or upload a new photo using multipart/form-data. [More info on Sending Files](https://core.telegram.org/bots/api#sending-files).
+-- @tparam ?string caption Photo caption (may also be used when resending photos by file_id), 0-1024 characters after entities parsing
+-- @tparam ?string parseMode `Markdown` or `HTML` if you want some markdown in the file's caption.
+-- @tparam ?boolean disableNotification Sends the message silently. Users will receive a notification with no sound.
+-- @tparam ?number replyToMessageID If the message is a reply, ID of the original message.
+-- @tparam ?InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|nil replyMarkup Additional interface options. An object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+-- @treturn Message The sent message.
+-- @raise Error on failure.
+function telegram.sendPhoto(chatID, photo, caption, parseMode, disableNotification, replyToMessageID, replyMarkup)
+    replyMarkup = replyMarkup and replyMarkup:getData()
+    local parameters = {chat_id=chatID, caption=caption, parse_mode=parseMode, disable_notification=disableNotification,
+    reply_to_message_id=replyToMessageID, reply_markup=replyMarkup}
+
+    local ok, data
+    if type(photo) == "table" then
+        ok, data = telegram.request("sendPhoto", parameters, nil, {photo=photo})
+    else
+        parameters.photo = photo
+        ok, data = telegram.request("sendPhoto", parameters)
+    end
+
+    if not ok then return error(data) end
+    return telegram.structures.Message(data)
+end
+
 --- Use this method to send general files.
 -- @tparam number|string chatID Unique identifier for the target chat or username of the target supergroup or channel (in the format `@channelusername`).
 -- @tparam InputFile|string document File to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. [More info on Sending Files](https://core.telegram.org/bots/api#sending-files).
