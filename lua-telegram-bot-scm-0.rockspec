@@ -1,7 +1,7 @@
 package = "Lua-Telegram-Bot"
-version = "0.0.0-0"
+version = "scm-0"
 source = {
-    url = "https://github.com/RamiLego4Game/Lua-Telegram-Bot.git"
+    url = "git+https://github.com/RamiLego4Game/Lua-Telegram-Bot.git"
 }
 description = {
     summary = "A Telegram Bots library for Lua.",
@@ -23,5 +23,5 @@ dependencies = {
 build = {
     type = "builtin",
     modules = {},
-    copy_directories = {"doc"}
+    --copy_directories = {"doc"}
 }
