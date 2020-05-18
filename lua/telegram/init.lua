@@ -181,6 +181,17 @@ function telegram.getFile(fileID)
     return telegram.structures.File(data)
 end
 
+--- Use this method to generate a new invite link for a chat; any previously generated link is revoked.
+-- The bot must be an administrator in the chat for this to work and must have the appropriate admin rights.
+-- @tparam number|string chatID Unique identifier for the target chat or username of the target supergroup or channel (in the format `@channelusername`).
+-- @treturn string The exported invite link on success.
+-- @raise Error on failure.
+function telegram.exportChatInviteLink(chatID)
+    local ok, data = telegram.request("exportChatInviteLink", {chat_id = chatID})
+    if not ok then return error(data) end
+    return data
+end
+
 --- Use this method to pin a message in a group, a supergroup, or a channel.
 -- he bot must be an administrator in the chat for this to work and must have the `canPinMessages` admin right in the supergroup or `canEditMessages` admin right in the channel.
 -- @tparam number|string chatID Unique identifier for the target chat or username of the target supergroup or channel (in the format `@channelusername`).
@@ -213,17 +224,6 @@ function telegram.getChat(chatID)
     local ok, data = telegram.request("getChat", {chat_id = chatID})
     if not ok then return error(data) end
     return telegram.structures.Chat(data)
-end
-
---- Use this method to generate a new invite link for a chat; any previously generated link is revoked.
--- The bot must be an administrator in the chat for this to work and must have the appropriate admin rights.
--- @tparam number|string chatID Unique identifier for the target chat or username of the target supergroup or channel (in the format `@channelusername`).
--- @treturn string The exported invite link on success.
--- @raise Error on failure.
-function telegram.exportChatInviteLink(chatID)
-    local ok, data = telegram.request("exportChatInviteLink", {chat_id = chatID})
-    if not ok then return error(data) end
-    return data
 end
 
 --- Use this method to change the list of the bot's commands.
