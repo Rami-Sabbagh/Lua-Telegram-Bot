@@ -279,4 +279,29 @@ function telegram.sendSticker(chatID, sticker, disableNotification, replyToMessa
     return telegram.structures.Message(data)
 end
 
+--TODO: getStickerSet
+
+--- Use this method to upload a .PNG file with a sticker for later use in createNewStickerSet and addStickerToSet methods (can be used multiple times).
+-- @tparam number userID User identifier of sticker file owner.
+-- @tparam InputFile pngSticker **PNG** image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px.
+-- @treturn File The uploaded file.
+-- @raise Error on failure.
+function telegram.uploadStickerFile(userID, pngSticker)
+    local ok, data = telegram.request("uploadStickerFile", {user_id=userID}, nil, {png_sticker=pngSticker})
+    if not ok then return error(data) end
+    return telegram.structures.File(data)
+end
+
+--TODO: createNewStickerSet
+
+--TODO: addStickerToSet
+
+--TODO: setStickerPositionInSet
+
+--TODO: deleteStickerFromSet
+
+--TODO: setStickerThumb
+
+
+
 return telegram

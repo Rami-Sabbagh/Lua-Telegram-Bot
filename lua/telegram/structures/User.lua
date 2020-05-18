@@ -52,6 +52,21 @@ function User:initialize(data)
 
 end
 
+--- Call a function passing it's errors to the previous error level.
+local function call(func, ...)
+    local ok, a,b,c,d,e,f = pcall(require("telegram")[func], ...)
+    if not ok then error(tostring(a), 3) end
+    return a,b,c,d,e,f
+end
+
+--- Use this method to upload a .PNG file with a sticker for later use in createNewStickerSet and addStickerToSet methods (can be used multiple times).
+-- @tparam InputFile pngSticker **PNG** image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px.
+-- @treturn File The uploaded file.
+-- @raise Error on failure.
+function User:uploadStickerFile(pngSticker)
+    return call("uploadStickerFile", self.id, pngSticker)
+end
+
 --- Operators overrides.
 -- @section operators_overrides
 
