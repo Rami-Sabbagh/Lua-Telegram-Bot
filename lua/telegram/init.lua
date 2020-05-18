@@ -255,6 +255,9 @@ function telegram.getMyCommands()
     return commands
 end
 
+--- Stickers Functions.
+-- @section stickers
+
 --- Use this method to send static .WEBP or animated .TGS stickers.
 -- @tparam number|string chatID Unique identifier for the target chat or username of the target supergroup or channel (in the format `@channelusername`).
 -- @tparam InputFile|string sticker Sticker to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a .WEBP file from the Internet, or upload a new one using multipart/form-data. [More info on Sending Files](https://core.telegram.org/bots/api#sending-files).
@@ -327,7 +330,31 @@ function telegram.createNewStickerSet(userID, name, title, pngSticker, tgsSticke
     return data
 end
 
---TODO: addStickerToSet
+--- Use this method to add a new sticker to a set created by the bot.
+-- You **must** use exactly one of the fields `pngSticker` or `tgsSticker`.
+-- Animated stickers can be added to animated sticker sets and only to them.
+-- Animated sticker sets can have up to 50 stickers. Static sticker sets can have up to 120 stickers.
+-- @tparam number userID User identifier of sticker set owner.
+-- @tparam string name Sticker set name.
+-- @tparam ?InputFile|string|nil pngSticker **PNG** image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data.
+-- @tparam ?InputFile tgsSticker **TGS** animation with the sticker, uploaded using multipart/form-data. See https://core.telegram.org/animated_stickers#technical-requirements for technical requirements.
+-- @tparam string emojis One or more emoji corresponding to the sticker.
+-- @tparam ?MaskPosition maskPosition A MaskPosition object for position where the mask should be placed on faces.
+-- @treturn boolean `true` on success.
+-- @raise Error on failure.
+function telegram.addStickerToSet(userID, name, pngSticker, tgsSticker, emojis, maskPosition)
+    maskPosition = maskPosition and maskPosition:getData()
+    local parameters = {user_id=userID, name=name, emojis=emojis, mask_position=maskPosition}
+    local ok, data
+    if type(pngSticker) == "string" then
+        parameters.png_sticker = pngSticker
+        ok, data = telegram.request("addStickerToSet", parameters)
+    else
+        ok, data = telegram.request("createNewStickerSet", parameters, nil, {png_sticker=pngSticker, tgs_sticker=tgsSticker})
+    end
+    if not ok then return error(data) end
+    return data
+end
 
 --TODO: setStickerPositionInSet
 

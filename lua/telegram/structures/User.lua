@@ -59,6 +59,9 @@ local function call(func, ...)
     return a,b,c,d,e,f
 end
 
+--- Stickers Methods.
+-- @section stickers
+
 --- Use this method to upload a .PNG file with a sticker for later use in createNewStickerSet and addStickerToSet methods (can be used multiple times).
 -- @tparam InputFile pngSticker **PNG** image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px.
 -- @treturn File The uploaded file.
@@ -81,6 +84,21 @@ end
 -- @raise Error on failure.
 function User:createNewStickerSet(name, title, pngSticker, tgsSticker, emojis, containsMasks, maskPosition)
     return call("createNewStickerSet", self.id, name, title, pngSticker, tgsSticker, emojis, containsMasks, maskPosition)
+end
+
+--- Use this method to add a new sticker to a set created by the bot.
+-- You **must** use exactly one of the fields `pngSticker` or `tgsSticker`.
+-- Animated stickers can be added to animated sticker sets and only to them.
+-- Animated sticker sets can have up to 50 stickers. Static sticker sets can have up to 120 stickers.
+-- @tparam string name Sticker set name.
+-- @tparam ?InputFile|string|nil pngSticker **PNG** image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data.
+-- @tparam ?InputFile tgsSticker **TGS** animation with the sticker, uploaded using multipart/form-data. See https://core.telegram.org/animated_stickers#technical-requirements for technical requirements.
+-- @tparam string emojis One or more emoji corresponding to the sticker.
+-- @tparam ?MaskPosition maskPosition A MaskPosition object for position where the mask should be placed on faces.
+-- @treturn boolean `true` on success.
+-- @raise Error on failure.
+function User:addStickerToSet(name, pngSticker, tgsSticker, emojis, maskPosition)
+    return call("addStickerSet", self.id, name, pngSticker, tgsSticker, emojis, maskPosition)
 end
 
 --- Operators overrides.
