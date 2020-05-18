@@ -106,6 +106,16 @@ function Chat:sendMessage(text, parseMode, disableWebPagePreview, disableNotific
     return call("sendMessage", self.id, text, parseMode, disableWebPagePreview, disableNotification, replyToMessageID, replyMarkup)
 end
 
+--- Use this method to forward messages of any kind.
+-- @tparam number|string fromChatID Unique identifier for the chat where the original message was sent (or channel username in the format `@channelusername`).
+-- @tparam ?boolean disableNotification Sends the message silently. Users will receive a notification with no sound.
+-- @tparam number messageID Message identifier in the chat specified in `fromChatID`.
+-- @treturn Message The sent message.
+-- @raise Error on failure.
+function Chat:forwardMessage(fromChatID, disableNotification, messageID)
+    return call("forwardMessage", self.id, fromChatID, disableNotification, messageID)
+end
+
 --- Use this method to send photos.
 -- @tparam InputFile|string photo Photo to send. Pass a file_id as String to send a photo that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a photo from the Internet, or upload a new photo using multipart/form-data. [More info on Sending Files](https://core.telegram.org/bots/api#sending-files).
 -- @tparam ?string caption Photo caption (may also be used when resending photos by file_id), 0-1024 characters after entities parsing

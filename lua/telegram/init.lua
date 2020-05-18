@@ -86,6 +86,19 @@ function telegram.sendMessage(chatID, text, parseMode, disableWebPagePreview, di
     return telegram.structures.Message(data)
 end
 
+--- Use this method to forward messages of any kind.
+-- @tparam number|string chatID Unique identifier for the target chat or username of the target channel (in the format `@channelusername`).
+-- @tparam number|string fromChatID Unique identifier for the chat where the original message was sent (or channel username in the format `@channelusername`).
+-- @tparam ?boolean disableNotification Sends the message silently. Users will receive a notification with no sound.
+-- @tparam number messageID Message identifier in the chat specified in `fromChatID`.
+-- @treturn Message The sent message.
+-- @raise Error on failure.
+function telegram.forwardMessage(chatID, fromChatID, disableNotification, messageID)
+    local ok, data = telegram.request("forwardMessage", {chat_id=chatID, from_chat_id=fromChatID, disable_notification=disableNotification, message_id=messageID})
+    if not ok then return error(data) end
+    return telegram.structures.Message(data)
+end
+
 --- Use this method to send photos.
 -- @tparam number|string chatID Unique identifier for the target chat or username of the target supergroup or channel (in the format `@channelusername`).
 -- @tparam InputFile|string photo Photo to send. Pass a file_id as String to send a photo that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a photo from the Internet, or upload a new photo using multipart/form-data. [More info on Sending Files](https://core.telegram.org/bots/api#sending-files).

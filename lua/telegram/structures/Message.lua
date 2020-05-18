@@ -220,6 +220,15 @@ local function call(func, ...)
     return a,b,c,d,e,f
 end
 
+--- Use this method to forward messages of any kind.
+-- @tparam number|string chatID Unique identifier for the target chat or username of the target channel (in the format `@channelusername`).
+-- @tparam ?boolean disableNotification Sends the message silently. Users will receive a notification with no sound.
+-- @treturn Message The sent message.
+-- @raise Error on failure.
+function Message:forwardMessage(chatID, disableNotification)
+    return call("forwardMessage", chatID, self.chat.id, disableNotification, self.messageID)
+end
+
 --- Use this method to pin a message in a group, a supergroup, or a channel.
 -- he bot must be an administrator in the chat for this to work and must have the `canPinMessages` admin right in the supergroup or `canEditMessages` admin right in the channel.
 -- @tparam ?boolean disableNotification Pass True, if it is not necessary to send a notification to all chat members about the new pinned message. Notifications are always disabled in channels.
