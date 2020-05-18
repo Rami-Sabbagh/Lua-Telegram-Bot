@@ -318,7 +318,7 @@ function telegram.createNewStickerSet(userID, name, title, pngSticker, tgsSticke
     local parameters = {user_id=userID, name=name, title=title, emojis=emojis, contains_masks=containsMasks, mask_position=maskPosition}
     local ok, data
     if type(pngSticker) == "string" then
-        parameters.pngSticker = pngSticker
+        parameters.png_sticker = pngSticker
         ok, data = telegram.request("createNewStickerSet", parameters)
     else
         ok, data = telegram.request("createNewStickerSet", parameters, nil, {png_sticker=pngSticker, tgs_sticker=tgsSticker})
