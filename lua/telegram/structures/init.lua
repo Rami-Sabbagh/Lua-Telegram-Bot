@@ -18,6 +18,7 @@ return {
     ReplyKeyboardMarkup = require("telegram.structures.ReplyKeyboardMarkup"),
     ReplyKeyboardRemove = require("telegram.structures.ReplyKeyboardRemove"),
     Sticker = require("telegram.structures.Sticker"),
+    StickerSet = require("telegram.structures.StickerSet"),
     Update = require("telegram.structures.Update"),
     User = require("telegram.structures.User"),
     Venue = require("telegram.structures.Venue"),
