@@ -214,6 +214,24 @@ function telegram.sendDocument(chatID, document, thumb, caption, parseMode, disa
     return telegram.structures.Message(data)
 end
 
+--- Use this method to send point on the map.
+-- @tparam number|string chatID Unique identifier for the target chat or username of the target supergroup or channel (in the format `@channelusername`).
+-- @tparam number latidude Latitude of the location.
+-- @tparam number longitude Longitude of the location.
+-- @tparam ?number livePeriod Period in seconds for which the location will be updated (see [Live Locations](https://telegram.org/blog/live-locations)), should be between 60 and 86400.
+-- @tparam ?boolean disableNotification Sends the message silently. Users will receive a notification with no sound.
+-- @tparam ?number replyToMessageID If the message is a reply, ID of the original message.
+-- @tparam ?InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|nil replyMarkup Additional interface options. An object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+-- @treturn Message The sent message.
+-- @raise Error on failure.
+function telegram.sendLocation(chatID, latidude, longitude, livePeriod, disableNotification, replyToMessageID, replyMarkup)
+    replyMarkup = replyMarkup and replyMarkup:getData()
+    local ok, data = telegram.request("sendLocation", {chat_id=chatID, latidude=latidude, longitude = longitude,
+    live_period=livePeriod, disable_notification=disableNotification, reply_to_message_id=replyToMessageID, reply_markup=replyMarkup})
+    if not ok then return error(data) end
+    return telegram.structures.Message(data)
+end
+
 --- Use this method to send a dice, which will have a random value from 1 to 6.
 -- (Yes, we're aware of the “_proper_” singular of die. But it's awkward, and we decided to help it change. One dice at a time!).
 -- @tparam number|string chatID Unique identifier for the target chat or username of the target supergroup or channel (in the format `@channelusername`).
