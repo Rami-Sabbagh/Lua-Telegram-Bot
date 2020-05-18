@@ -210,7 +210,7 @@ end
 -- @treturn boolean `true` on success.
 -- @raise Error on failure.
 function Chat:sendChatAction(action)
-    call("sendChatAction", self.id, action)
+    return call("sendChatAction", self.id, action)
 end
 
 --- Use this method to pin a message in a group, a supergroup, or a channel.
