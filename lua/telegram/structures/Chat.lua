@@ -188,6 +188,31 @@ function Chat:sendDice(emoji, disableNotification, replyToMessageID, replyMarkup
     return call("sendDice", self.id, emoji, disableNotification, replyToMessageID, replyMarkup)
 end
 
+--- Use this method when you need to tell the user that something is happening on the bot's side.
+-- Available actions:
+--
+-- - `typing` for text messages.
+--
+-- - `upload_photo` for photos.
+--
+-- - `upload_video` for videos.
+--
+-- - `record_audio` or `upload_audio` for audio files.
+--
+-- - `upload_document` for general files.
+--
+-- - `find_location` for location data.
+--
+-- - `record_video_note` or `upload_video_note` for video notes.
+---
+-- The status is set for 5 seconds or less (when a message arrives from your bot, Telegram clients clear its typing status).
+-- @tparam string action Type of action to broadcast.
+-- @treturn boolean `true` on success.
+-- @raise Error on failure.
+function Chat:sendChatAction(action)
+    call("sendChatAction", self.id, action)
+end
+
 --- Use this method to pin a message in a group, a supergroup, or a channel.
 -- he bot must be an administrator in the chat for this to work and must have the `canPinMessages` admin right in the supergroup or `canEditMessages` admin right in the channel.
 -- @tparam number messageID Identifier of a message to pin.

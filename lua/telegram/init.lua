@@ -249,6 +249,34 @@ function telegram.sendDice(chatID, emoji, disableNotification, replyToMessageID,
     return telegram.structures.Message(data)
 end
 
+--- Use this method when you need to tell the user that something is happening on the bot's side.
+-- Available actions:
+--
+-- - `typing` for text messages.
+--
+-- - `upload_photo` for photos.
+--
+-- - `upload_video` for videos.
+--
+-- - `record_audio` or `upload_audio` for audio files.
+--
+-- - `upload_document` for general files.
+--
+-- - `find_location` for location data.
+--
+-- - `record_video_note` or `upload_video_note` for video notes.
+---
+-- The status is set for 5 seconds or less (when a message arrives from your bot, Telegram clients clear its typing status).
+-- @tparam number|string chatID Unique identifier for the target chat or username of the target supergroup or channel (in the format `@channelusername`).
+-- @tparam string action Type of action to broadcast.
+-- @treturn boolean `true` on success.
+-- @raise Error on failure.
+function telegram.sendChatAction(chatID, action)
+    local ok, data = telegram.request("sendChatAction", {chat_id=chatID, action=action})
+    if not ok then return error(data) end
+    return data
+end
+
 --- Use this method to get basic info about a file and prepare it for downloading. For the moment, bots can download files of up to 20MB in size.
 -- @tparam string fileID File identifier to get info about.
 -- @treturn File The requested file object.
