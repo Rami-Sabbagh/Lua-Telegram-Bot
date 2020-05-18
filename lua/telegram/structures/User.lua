@@ -67,6 +67,22 @@ function User:uploadStickerFile(pngSticker)
     return call("uploadStickerFile", self.id, pngSticker)
 end
 
+--- Use this method to create a new sticker set owned by a user.
+-- The bot will be able to edit the sticker set thus created.
+-- You **must** use exactly one of the fields `pngSticker` or `tgsSticker`.
+-- @tparam string name Short name of sticker set, to be used in t.me/addstickers/ URLs (e.g., animals). Can contain only english letters, digits and underscores. Must begin with a letter, can't contain consecutive underscores and must end in ` by <bot username>`. `<bot_username>` is case insensitive. 1-64 characters.
+-- @tparam string title Sticker set title, 1-64 characters.
+-- @tparam ?InputFile|string|nil pngSticker **PNG** image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data.
+-- @tparam ?InputFile tgsSticker **TGS** animation with the sticker, uploaded using multipart/form-data. See https://core.telegram.org/animated_stickers#technical-requirements for technical requirements.
+-- @tparam string emojis One or more emoji corresponding to the sticker.
+-- @tparam ?boolean containsMasks Pass True, if a set of mask stickers should be created.
+-- @tparam ?MaskPosition maskPosition A MaskPosition object for position where the mask should be placed on faces.
+-- @treturn boolean `true` on success.
+-- @raise Error on failure.
+function User:createNewStickerSet(name, title, pngSticker, tgsSticker, emojis, containsMasks, maskPosition)
+    return call("createNewStickerSet", self.id, name, title, pngSticker, tgsSticker, emojis, containsMasks, maskPosition)
+end
+
 --- Operators overrides.
 -- @section operators_overrides
 
