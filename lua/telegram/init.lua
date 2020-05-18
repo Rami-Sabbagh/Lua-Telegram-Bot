@@ -367,7 +367,15 @@ function telegram.setStickerPositionInSet(sticker, position)
     return data
 end
 
---TODO: deleteStickerFromSet
+--- Use this method to delete a sticker from a set created by the bot.
+-- @tparam string sticker File identifier of the sticker.
+-- @treturn boolean `true` on success.
+-- @raise Error on failure.
+function telegram.deleteStickerFromSet(sticker)
+    local ok, data = telegram.request("deleteStickerFromSet", {sticker=sticker})
+    if not ok then return error(data) end
+    return data
+end
 
 --TODO: setStickerThumb
 
