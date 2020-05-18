@@ -6,7 +6,7 @@ local baseURL = {"https://api.telegram.org/bot", "<token>", "/", "METHOD_NAME"}
 local ltn12 = require("ltn12")
 local http = require("http.compat.socket")
 local json = require("telegram.modules.json")
-local multipart = require("telegram.modules.multipart-post")
+local multipart = require("multipart-post")
 
 local token --The authorization token
 local defaultTimeout = 5 --Requests default timeout

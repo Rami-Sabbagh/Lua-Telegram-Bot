@@ -1,5 +1,5 @@
 package = "Lua-Telegram-Bot"
-version = "scm-0"
+version = "scm-1"
 source = {
     url = "git+https://github.com/RamiLego4Game/Lua-Telegram-Bot.git"
 }
@@ -18,7 +18,8 @@ dependencies = {
     "http >= 0.3 < 0.4",
     "luasocket >= 3.0rc1, < 4.0",
     "middleclass >= 4.1.1, < 5.0.0",
-    "lua-cjson >= 2.1.0, < 3.0.0"
+    "lua-cjson >= 2.1.0, < 3.0.0",
+    "multipart-post >= 1.3, < 2.0"
 }
 build = {
     type = "builtin",
