@@ -279,7 +279,15 @@ function telegram.sendSticker(chatID, sticker, disableNotification, replyToMessa
     return telegram.structures.Message(data)
 end
 
---TODO: getStickerSet
+--- Use this method to get a sticker set.
+-- @tparam string name Name of the sticker set.
+-- @treturn StickerSet The requested sticker set.
+-- @raise Error on failure.
+function telegram.getStickerSet(name)
+    local ok, data = telegram.request("getStickerSet", {name=name})
+    if not ok then return error(data) end
+    return telegram.structures.StickerSet(data)
+end
 
 --- Use this method to upload a .PNG file with a sticker for later use in createNewStickerSet and addStickerToSet methods (can be used multiple times).
 -- @tparam number userID User identifier of sticker file owner.
