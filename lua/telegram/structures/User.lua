@@ -59,6 +59,15 @@ local function call(func, ...)
     return a,b,c,d,e,f
 end
 
+--- Use this method to set a custom title for an administrator in a supergroup promoted by the bot.
+-- @tparam number|string chatID Unique identifier for the target chat or username of the target supergroup or channel (in the format `@channelusername`).
+-- @tparam string customTitle New custom title for the administrator; 0-16 characters, emoji are not allowed.
+-- @treturn boolean `true` on success.
+-- @raise Error on failure.
+function User:setChatAdministratorCustomTitle(chatID, customTitle)
+    return call("setChatAdministratorCustomTitle", chatID, self.id, customTitle)
+end
+
 --- Stickers Methods.
 -- @section stickers
 

@@ -287,6 +287,18 @@ function telegram.getFile(fileID)
     return telegram.structures.File(data)
 end
 
+--- Use this method to set a custom title for an administrator in a supergroup promoted by the bot.
+-- @tparam number|string chatID Unique identifier for the target chat or username of the target supergroup or channel (in the format `@channelusername`).
+-- @tparam number userID Unique identifier of the target user.
+-- @tparam string customTitle New custom title for the administrator; 0-16 characters, emoji are not allowed.
+-- @treturn boolean `true` on success.
+-- @raise Error on failure.
+function telegram.setChatAdministratorCustomTitle(chatID, userID, customTitle)
+    local ok, data = telegram.request("setChatAdministratorCustomTitle", {chat_id=chatID, user_id=userID, custom_title=customTitle})
+    if not ok then return error(data) end
+    return data
+end
+
 --- Use this method to generate a new invite link for a chat; any previously generated link is revoked.
 -- The bot must be an administrator in the chat for this to work and must have the appropriate admin rights.
 -- @tparam number|string chatID Unique identifier for the target chat or username of the target supergroup or channel (in the format `@channelusername`).

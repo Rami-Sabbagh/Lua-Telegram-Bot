@@ -213,6 +213,15 @@ function Chat:sendChatAction(action)
     return call("sendChatAction", self.id, action)
 end
 
+--- Use this method to set a custom title for an administrator in a supergroup promoted by the bot.
+-- @tparam number userID Unique identifier of the target user.
+-- @tparam string customTitle New custom title for the administrator; 0-16 characters, emoji are not allowed.
+-- @treturn boolean `true` on success.
+-- @raise Error on failure.
+function Chat:setChatAdministratorCustomTitle(userID, customTitle)
+    return call("setChatAdministratorCustomTitle", self.id, userID, customTitle)
+end
+
 --- Use this method to pin a message in a group, a supergroup, or a channel.
 -- he bot must be an administrator in the chat for this to work and must have the `canPinMessages` admin right in the supergroup or `canEditMessages` admin right in the channel.
 -- @tparam number messageID Identifier of a message to pin.
