@@ -356,7 +356,16 @@ function telegram.addStickerToSet(userID, name, pngSticker, tgsSticker, emojis, 
     return data
 end
 
---TODO: setStickerPositionInSet
+--- Use this method to move a sticker in a set created by the bot to a specific position.
+-- @tparam string sticker File identifier of the sticker.
+-- @tparam number position New sticker position in the set, zero-based.
+-- @treturn boolean `true` on success.
+-- @raise Error on failure.
+function telegram.setStickerPositionInSet(sticker, position)
+    local ok, data = telegram.request("setStickerPositionInSet", {sticker=sticker, position=position})
+    if not ok then return error(data) end
+    return data
+end
 
 --TODO: deleteStickerFromSet
 
