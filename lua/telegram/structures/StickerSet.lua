@@ -18,7 +18,7 @@ function StickerSet:initialize(data)
     self.name = data.name
 
     --- Sticker set title (string).
-    self.title = data.name
+    self.title = data.title
 
     --- True, if the sticker set contains [animated stickers](https://telegram.org/blog/animated-stickers) (boolean).
     self.isAnimated = data.is_animated
