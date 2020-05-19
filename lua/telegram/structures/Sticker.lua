@@ -11,7 +11,7 @@ local Sticker = class("telegram.structures.Sticker")
 
 --- Create a new sticker object using data returned by Telegram Bot API.
 -- @tparam table data The sticker data returned by Telegram Bot API.
--- @treturn Chat The new created sticker object.
+-- @treturn Sticker The new created sticker object.
 function Sticker:initialize(data)
 
     --- Identifier for this file, which can be used to download or reuse the file (string).
@@ -50,6 +50,20 @@ function Sticker:initialize(data)
     ---
     -- @section end
 
+end
+
+--- Call a function passing it's errors to the previous error level.
+local function call(func, ...)
+    local ok, a,b,c,d,e,f = pcall(require("telegram")[func], ...)
+    if not ok then error(tostring(a), 3) end
+    return a,b,c,d,e,f
+end
+
+--- Use this method to get basic info about a file and prepare it for downloading. For the moment, bots can download files of up to 20MB in size.
+-- @treturn File The requested file object.
+-- @raise Error on failure.
+function Sticker:getFile()
+    return call("getFile", self.fileID)
 end
 
 return Sticker
