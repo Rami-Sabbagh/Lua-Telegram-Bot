@@ -21,6 +21,12 @@ function telegram.setToken(token)
     telegram.request("setToken", token)
 end
 
+--- Get the bot's authorization token
+-- @treturn ?string The bot's authorization token, e.x: (`123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11`).
+function telegram.getToken()
+    return select(2, telegram.request("getToken"))
+end
+
 --- Set the default timeout used for the API requests
 -- @tparam number timeout The new timeout value, -1 for no timeout.
 function telegram.setTimeout(timeout)

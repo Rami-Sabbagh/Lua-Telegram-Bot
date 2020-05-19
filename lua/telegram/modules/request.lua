@@ -26,6 +26,8 @@ local function request(methodName, parameters, timeout, files)
     if methodName:lower() == "settoken" then
         token = parameters
         return true
+    elseif methodName:lower() == "gettoken" then
+        return true, token
     elseif methodName:lower() == "settimeout" then
         defaultTimeout = parameters
         return true
