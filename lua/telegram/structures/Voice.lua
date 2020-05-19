@@ -29,6 +29,9 @@ function Voice:initialize(data)
     --- File size (number).
     self.fileSize = data.file_size
 
+    ---
+    -- @section end
+
 end
 
 return Voice

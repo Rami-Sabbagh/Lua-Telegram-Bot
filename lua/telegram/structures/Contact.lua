@@ -29,6 +29,9 @@ function Contact:initialize(data)
     --- Additional data about the contact in the form of a [vCard](https://en.wikipedia.org/wiki/VCard) (string).
     self.vcard = data.vcard
 
+    ---
+    -- @section end
+
 end
 
 return Contact
