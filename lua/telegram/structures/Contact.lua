@@ -8,7 +8,7 @@ local Contact = class("telegram.structures.Contact")
 
 --- Create a new contact object using data returned by Telegram Bot API.
 -- @tparam table data The contact data returned by Telegram Bot API.
--- @treturn User The new created contact object.
+-- @treturn Contact The new created contact object.
 function Contact:initialize(data)
 
     --- Contact's phone number (string).
