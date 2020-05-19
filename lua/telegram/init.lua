@@ -4,7 +4,6 @@
 local telegram = {}
 
 -- Load the submodules.
-telegram.json = require("telegram.modules.json")
 telegram.request = require("telegram.modules.request")
 
 -- Load the structures.

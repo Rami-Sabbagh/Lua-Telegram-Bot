@@ -5,7 +5,7 @@ local baseURL = {"https://api.telegram.org/bot", "<token>", "/", "METHOD_NAME"}
 
 local ltn12 = require("ltn12")
 local http = require("http.compat.socket")
-local json = require("telegram.modules.json")
+local cjson = require("cjson")
 local multipart = require("multipart-post")
 
 local token --The authorization token
@@ -51,7 +51,7 @@ local function request(methodName, parameters, timeout, files)
 
         --The nested tables are encoded as JSON strings
         for k, v in pairs(parameters or {}) do
-            data[k] = type(v) == "table" and (json.encode(v)) or (type(v) ~= "nil" and tostring(v) or nil)
+            data[k] = type(v) == "table" and (cjson.encode(v)) or (type(v) ~= "nil" and tostring(v) or nil)
         end
 
         --Add the files to upload
@@ -62,7 +62,7 @@ local function request(methodName, parameters, timeout, files)
     else --A normal JSON request
 
         --Request body
-        local body = json.encode(parameters or {})
+        local body = cjson.encode(parameters or {})
 
         --Request body source
         local source = ltn12.source.string(body)
@@ -94,7 +94,7 @@ local function request(methodName, parameters, timeout, files)
 
     if ok then
         responseBody = table.concat(responseBody)
-        local response = json.decode(responseBody)
+        local response = cjson.decode(responseBody)
         if response.ok then
             return true, response.result, response.description
         else
