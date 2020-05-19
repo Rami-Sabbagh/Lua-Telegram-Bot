@@ -251,6 +251,31 @@ function Chat:sendSticker(sticker, disableNotification, replyToMessageID, replyM
     return call("sendSticker", self.id, sticker, disableNotification, replyToMessageID, replyMarkup)
 end
 
+--- Updating messages Functions.
+-- @section updating_messages
+
+--- Use this method to delete a message, including service messages.
+-- With the following limitations:
+-- A message can only be deleted if it was sent less than 48 hours ago.
+--
+-- - A dice message in a private chat can only be deleted if it was sent more than 24 hours ago.
+--
+-- - Bots can delete outgoing messages in private chats, groups, and supergroups.
+--
+-- - Bots can delete incoming messages in private chats.
+--
+-- - Bots granted `canPostMessages` permissions can delete outgoing messages in channels.
+--
+-- - If the bot is an administrator of a group, it can delete any message there.
+--
+-- - If the bot has `canDeleteMessages` permission in a supergroup or a channel, it can delete any message there.
+-- @tparam number messageID Identifier of the message to delete.
+-- @treturn boolean `true` on success.
+-- @raise Error on failure.
+function Chat:deleteMessage(messageID)
+    return call("deleteMessage", self.id, messageID)
+end
+
 --- Operators overrides.
 -- @section operators_overrides
 

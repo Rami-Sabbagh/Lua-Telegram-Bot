@@ -372,6 +372,40 @@ function telegram.getMyCommands()
     return commands
 end
 
+--- Updating messages Functions.
+-- @section updating_messages
+
+--TODO: editMessageText
+--TODO: editMessageCaption
+--TODO: editMessageMedia
+--TODO: editMessageReplayMarkup
+--TODO: stopPoll
+
+--- Use this method to delete a message, including service messages.
+-- With the following limitations:
+-- A message can only be deleted if it was sent less than 48 hours ago.
+--
+-- - A dice message in a private chat can only be deleted if it was sent more than 24 hours ago.
+--
+-- - Bots can delete outgoing messages in private chats, groups, and supergroups.
+--
+-- - Bots can delete incoming messages in private chats.
+--
+-- - Bots granted `canPostMessages` permissions can delete outgoing messages in channels.
+--
+-- - If the bot is an administrator of a group, it can delete any message there.
+--
+-- - If the bot has `canDeleteMessages` permission in a supergroup or a channel, it can delete any message there.
+-- @tparam number|string chatID Unique identifier for the target chat or username of the target channel (in the format `@channelusername`).
+-- @tparam number messageID Identifier of the message to delete.
+-- @treturn boolean `true` on success.
+-- @raise Error on failure.
+function telegram.deleteMessage(chatID, messageID)
+    local ok, data = telegram.request("deleteMessage", {chat_id=chatID, message_id=messageID})
+    if not ok then return error(data) end
+    return data
+end
+
 --- Stickers Functions.
 -- @section stickers
 
