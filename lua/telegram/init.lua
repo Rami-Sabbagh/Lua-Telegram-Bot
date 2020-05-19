@@ -507,7 +507,7 @@ function telegram.addStickerToSet(userID, name, pngSticker, tgsSticker, emojis, 
         parameters.png_sticker = pngSticker
         ok, data = telegram.request("addStickerToSet", parameters)
     else
-        ok, data = telegram.request("createNewStickerSet", parameters, nil, {png_sticker=pngSticker, tgs_sticker=tgsSticker})
+        ok, data = telegram.request("addStickerToSet", parameters, nil, {png_sticker=pngSticker, tgs_sticker=tgsSticker})
     end
     if not ok then return error(data) end
     return data
@@ -547,7 +547,7 @@ function telegram.setStickerThumb(name, userID, thumb)
         parameters.thumb = thumb
         ok, data = telegram.request("setStickerThumb", parameters)
     else
-        ok, data = telegram.request("setStickerThhumb", parameters, nil, {thumb=thumb})
+        ok, data = telegram.request("setStickerThumb", parameters, nil, {thumb=thumb})
     end
     if not ok then return error(data) end
     return data
