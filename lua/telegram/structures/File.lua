@@ -33,11 +33,10 @@ function File:initialize(data)
 end
 
 --- Get the file download URL (if exists).
--- @tparam string token The authorization token of the bot.
 -- @treturn ?string The download URL if exists.
-function File:getURL(token)
+function File:getURL()
     if not self.filePath then return end
-    return string.format("https://api.telegram.org/file/bot%s/%s", token, self.filePath)
+    return string.format("https://api.telegram.org/file/bot%s/%s", require("telegram").getToken(), self.filePath)
 end
 
 return File
