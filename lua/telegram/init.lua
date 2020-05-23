@@ -349,6 +349,23 @@ function telegram.getChat(chatID)
     return telegram.structures.Chat(data)
 end
 
+--- Use this method to send answers to callback queries sent from [inline keyboards](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating).
+-- The answer will be displayed to the user as a notification at the top of the chat screen or as an alert.
+-- @tparam string callbackQueryID Unique identifier for the query to be answered.
+-- @tparam ?string text Text of the notification. If not specified, nothing will be shown to the user, 0-200 characters.
+-- @tparam ?boolean showAlert If `true`, an alert will be shown by the client instead of a notification at the top of the chat screen. Defaults to `false`.
+-- @tparam ?string url URL that will be opened by the user's client. If you have created a Game and accepted the conditions via @Botfather, specify the URL that opens your game — note that this will only work if the query comes from a callback_game button.
+-- Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot with a parameter.
+-- @tparam ?number cacheTime The maximum amount of time in seconds that the result of the callback query may be cached client-side. Telegram apps will support caching starting in version 3.14. Defaults to `0`.
+-- @treturn boolean `true` on success.
+-- @raise Error on failure.
+function telegram.answerCallbackQuery(callbackQueryID, text, showAlert, url, cacheTime)
+    local ok, data = telegram.request("answerCallbackQuery", {callback_query_id=callbackQueryID, text=text,
+        show_alert=showAlert, url=url, cache_time=cacheTime})
+    if not ok then return error(data) end
+    return data
+end
+
 --- Use this method to change the list of the bot's commands.
 -- Command name must be between 1 and 32 characters.
 -- Command description must be between 3 and 256 characters.
