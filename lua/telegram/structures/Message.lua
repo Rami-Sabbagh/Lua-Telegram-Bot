@@ -11,7 +11,7 @@ local Contact = require("telegram.structures.Contact")
 local Dice = require("telegram.structures.Dice")
 local Document = require("telegram.structures.Document")
 local Game = require("telegram.structures.Game")
-local InlineKeyboardMarkup = require("telegram.structures.InlineKeyboardMarkup")
+--TODO: local InlineKeyboardMarkup = require("telegram.structures.InlineKeyboardMarkup")
 --local Invoice = require("telegram.structures.Invoice")
 local Location = require("telegram.structures.Location")
 local MessageEntity = require("telegram.structures.MessageEntity")
@@ -205,9 +205,9 @@ function Message:initialize(data)
 
     --TODO: passport_data
 
-    --- Inline keyboard attached to the message (InlineKeyboardMarkup).
+    --TODO: Inline keyboard attached to the message (InlineKeyboardMarkup).
     -- `login_url` buttons are represented as ordinary `url` buttons.
-    self.replyMarkup = data.reply_markup and InlineKeyboardMarkup(data.reply_markup)
+    --self.replyMarkup = data.reply_markup and InlineKeyboardMarkup(data.reply_markup)
 
     ---
     -- @section end
