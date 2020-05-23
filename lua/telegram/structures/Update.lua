@@ -5,6 +5,7 @@
 
 local class = require("middleclass")
 
+local CallbackQuery = require("telegram.structures.CallbackQuery")
 local Message = require("telegram.structures.Message")
 --InlineQuey
 --ChoseInlineResult
@@ -44,8 +45,12 @@ function Update:initialize(data)
     --- New version of a channel post that is known to the bot and was edited (Message).
     self.editedChannelPost = data.edited_channel_post and Message(data.edited_channel_post)
 
-    --TODO: inline_query, chosen_inline_result, callback_query, shipping_query,
-    --pre_checkout_query, poll, poll_answer
+    --TODO: inline_query, chosen_inline_result
+
+    --- New incoming callback query (CallbackQuery).
+    self.callbackQuery = data.callback_query and CallbackQuery(data.callback_query)
+
+    --TODO: shipping_query, pre_checkout_query, poll, poll_answer
 
     ---
     -- @section end

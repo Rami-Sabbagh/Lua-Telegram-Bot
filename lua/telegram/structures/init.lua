@@ -1,6 +1,7 @@
 return {
     Animation = require("telegram.structures.Animation"),
     Audio = require("telegram.structures.Audio"),
+    CallbackQuery = require("telegram.structures.CallbackQuery"),
     Chat = require("telegram.structures.Chat"),
     Contact = require("telegram.structures.Contact"),
     Dice = require("telegram.structures.Dice"),
