@@ -9,6 +9,7 @@ return {
     File = require("telegram.structures.File"),
     ForceReply = require("telegram.structures.ForceReply"),
     Game = require("telegram.structures.Game"),
+    InlineKeyboardButton = require("telegram.structures.InlineKeyboardButton"),
     InlineKeyboardMarkup = require("telegram.structures.InlineKeyboardMarkup"),
     Location = require("telegram.structures.Location"),
     MaskPosition = require("telegram.structures.MaskPosition"),
