@@ -22,7 +22,7 @@ end
 function InlineKeyboardMarkup:getData()
     local keyboard = {}
 
-    for rid, row in pairs(self.keyboard) do
+    for rid, row in pairs(self.inlineKeyboard) do
         local clonedRow = {}
         for bid, button in pairs(row) do
             clonedRow[bid] = button:getData()

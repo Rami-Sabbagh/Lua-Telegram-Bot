@@ -62,7 +62,7 @@ end
 -- @treturn boolean `true` on success.
 -- @raise Error on failure.
 function CallbackQuery:answerCallbackQuery(text, showAlert, url, cacheTime)
-    return call("answerCallbackQuery", self, text, showAlert, url, cacheTime)
+    return call("answerCallbackQuery", self.id, text, showAlert, url, cacheTime)
 end
 
 return CallbackQuery
