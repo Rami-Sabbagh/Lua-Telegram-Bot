@@ -7,7 +7,7 @@ local class = require("middleclass")
 local InlineKeyboardMarkup = class("telegram.InlineKeyboardMarkup")
 
 --- Create a new InlineKeyboardMarkup object.
--- @tparam {{InlineKeyboardMarkup}} keyboard Array of keyboard rows, each row is an array of InlineKeyboardButton.
+-- @tparam {{InlineKeyboardButton}} keyboard Array of keyboard rows, each row is an array of InlineKeyboardButton.
 -- @treturn InlineKeyboardMarkup The new created InlineKeyboardMarkup object.
 -- @usage local InlineKeyboardMarkup = telegram.structures.InlineKeyboardMarkup(keyboard)
 function InlineKeyboardMarkup:initialize(keyboard)
