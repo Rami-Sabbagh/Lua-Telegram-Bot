@@ -258,7 +258,7 @@ end
 -- - If the bot has `canDeleteMessages` permission in a supergroup or a channel, it can delete any message there.
 -- @treturn boolean `true` on success.
 -- @raise Error on failure.
-function Chat:deleteMessage()
+function Message:deleteMessage()
     return call("deleteMessage", self.chat.id, self.messageID)
 end
 
