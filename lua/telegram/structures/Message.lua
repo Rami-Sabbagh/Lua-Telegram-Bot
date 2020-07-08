@@ -241,6 +241,17 @@ end
 --- Updating messages Functions.
 -- @section updating_messages
 
+--- Use this method to edit textf and game messages.
+-- @tparam ?string text New text of the message, 1-4096 characters after entities parsing.
+-- @tparam ?string parseMode Mode for parsing entities in the message text. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details.
+-- @tparam ?boolean disableWebPagePreview Disables link previews for links in this message.
+-- @tparam ?InlineKeyboardMarkup replyMarkup The reply markup for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating).
+-- @treturn Message|boolean If edited message is sent by the bot, the edited Message is returned, otherwise `true` is returned.
+-- @raise error on failure.
+function Message:editMessageText(text, parseMode, disableWebPagePreview, replyMarkup)
+    return call("editMessageText", self.chat.id, self.messageID, nil, text, parseMode, disableWebPagePreview, replyMarkup)
+end
+
 --- Use this method to delete a message, including service messages.
 -- With the following limitations:
 -- A message can only be deleted if it was sent less than 48 hours ago.

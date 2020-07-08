@@ -398,7 +398,26 @@ end
 --- Updating messages Functions.
 -- @section updating_messages
 
---TODO: editMessageText
+--- Use this method to edit text and game messages.
+-- @tparam ?number|string chatID Required if `inlineMessageID` is not specified. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`).
+-- @tparam ?number messageID Required if `inlineMessageID` is not specified. Identifier of the message to edit.
+-- @tparam ?string inlineMessageID Required if `chatID` and `messageID` are not specified. Identifier of the inline message.
+-- @tparam ?string text New text of the message, 1-4096 characters after entities parsing.
+-- @tparam ?string parseMode Mode for parsing entities in the message text. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details.
+-- @tparam ?boolean disableWebPagePreview Disables link previews for links in this message.
+-- @tparam ?InlineKeyboardMarkup replyMarkup The reply markup for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating).
+-- @treturn Message|boolean If edited message is sent by the bot, the edited Message is returned, otherwise `true` is returned.
+-- @raise error on failure.
+function telegram.editMessageText(chatID, messageID, inlineMessageID, text, parseMode, disableWebPagePreview, replyMarkup)
+    local ok, data = telegram.request("editMessageText", {chat_id=chatID, message_id=messageID, inline_message_id=inlineMessageID, text=text, parse_mode=parseMode, disable_web_page_preview=disableWebPagePreview, reply_markup=replyMarkup})
+    if not ok then return error(data) end
+    if type(data) == "table" then
+        return telegram.structures.Message(data)
+    else
+        return data
+    end
+end
+
 --TODO: editMessageCaption
 --TODO: editMessageMedia
 --TODO: editMessageReplayMarkup
